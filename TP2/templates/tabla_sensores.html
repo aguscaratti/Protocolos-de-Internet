@@ -1,3 +1,5 @@
+%%writefile tabla_sensores_para_editar.html
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -66,7 +68,7 @@
         <div class="card-body">
 
             <div class="mb-3">
-                <input type="text" id="buscar" class="form-control" placeholder="Buscar por lugar...">
+                <input type="number" id="buscar" class="form-control" placeholder="Buscar por ID...">
             </div>
 
             <table class="table table-striped table-bordered align-middle">
@@ -100,37 +102,79 @@ async function cargarDatos() {
 
     result.data.forEach(sensor => {
         tabla.innerHTML += `
-            <tr>
-                <td>${sensor.id}</td>
-                <td>
-                    <input class="form-control" id="lugar-${sensor.id}" value="${sensor.lugar || ''}">
-                </td>
-                <td>${sensor.co2 ?? ''}</td>
-                <td>${sensor.temp ?? ''}</td>
-                <td>${sensor.hum ?? ''}</td>
-                <td>${sensor.fecha ?? ''}</td>
-                <td>
-                    <button class="btn btn-sm btn-primary" onclick="actualizar(${sensor.id})">
-                        Actualizar
-                    </button>
-                    <button class="btn btn-sm btn-danger" onclick="eliminar(${sensor.id})">
-                        Eliminar
-                    </button>
-                </td>
-            </tr>
-        `;
+    <tr>
+        <td>${sensor.id}</td>
+
+        <td>
+            <input class="form-control"
+                   id="lugar-${sensor.id}"
+                   value="${sensor.lugar || ''}">
+        </td>
+
+        <td>
+            <input class="form-control"
+                   id="co2-${sensor.id}"
+                   value="${sensor.co2 ?? ''}">
+        </td>
+
+        <td>
+            <input class="form-control"
+                   id="temp-${sensor.id}"
+                   value="${sensor.temp ?? ''}">
+        </td>
+
+        <td>
+            <input class="form-control"
+                   id="hum-${sensor.id}"
+                   value="${sensor.hum ?? ''}">
+        </td>
+
+        <td>
+            <input class="form-control"
+                   id="fecha-${sensor.id}"
+                   value="${sensor.fecha ?? ''}">
+        </td>
+
+        <td>
+            <button class="btn btn-sm btn-primary"
+                    onclick="actualizar(${sensor.id})">
+                Actualizar
+            </button>
+
+            <button class="btn btn-sm btn-danger"
+                    onclick="eliminar(${sensor.id})">
+                Eliminar
+            </button>
+        </td>
+    </tr>
+`;
     });
 }
 
 async function actualizar(id) {
-    const lugar = document.getElementById(`lugar-${id}`).value;
+
+    const data = {
+
+        lugar: document.getElementById(`lugar-${id}`).value,
+
+        co2: document.getElementById(`co2-${id}`).value,
+
+        temp: document.getElementById(`temp-${id}`).value,
+
+        hum: document.getElementById(`hum-${id}`).value,
+
+        fecha: document.getElementById(`fecha-${id}`).value
+    };
 
     await fetch(`/api/data/${id}`, {
+
         method: "PUT",
+
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ lugar: lugar })
+
+        body: JSON.stringify(data)
     });
 
     cargarDatos();
