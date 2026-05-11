@@ -3,6 +3,19 @@
 
 1- Analizar la aplicación Flask básica. Explicar el funcionamiento de app = Flask(name), @app.route("/"), jsonify() y el modo debug=True, tomando como base Prueba_Flask_Routes_01.py.
 
+  _Prueba_Flask_Routes_01.py._
+  
+  app = Flask(name) crea una instancia en la que se inicia un servidor de Flask. Name le indica a Flask donde está el módulo inicial y ubicar rutas relativas correctamente.
+  @app.route() es un endpoint, que tiene GET como método por defecto, es decir, devuelve texto.
+  @app.route('/')
+  def index():
+      return "Hola"
+  
+  La función jsonify() convierte objetos Python en una respuesta HTTP JSON válida. Sin	está, el return puede fallar.
+  El modo debug=True activa el modo desarrollo, lo que activa el auto-reload (El server se 	reinicia cuando guardo los cambios).
+
+
+
 2- Implementar una API REST de sensores.
 Desarrollar endpoints para listar sensores, consultar un sensor por id, crear un sensor, modificarlo y eliminarlo usando métodos GET, POST, PUT y DELETE.
 
