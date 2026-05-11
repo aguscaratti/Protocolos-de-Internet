@@ -1,3 +1,5 @@
+%%writefile consigna2_TP2A.py
+
 from flask import Flask, render_template, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from decimal import Decimal
@@ -75,16 +77,22 @@ def index():
 # CONSULTAR DATOS CON FILTRO + PAGINACION + ORDEN
 
 
+
 @app.route("/api/datos")
 def datos():
 
     query = LecturaSensores.query
 
-    search = request.args.get("search")
-    if search:
-        query = query.filter(LecturaSensores.lugar.like(f"%{search}%"))
+    # BUSQUEDA POR ID
+
+    search = request.args.get("search", type=int)
+
+    if search is not None:
+        query = query.filter(LecturaSensores.id == search)
 
     total = query.count()
+
+    # ORDENAMIENTO
 
     sort = request.args.get("sort", "id")
 
@@ -98,6 +106,7 @@ def datos():
     }
 
     if sort:
+
         descending = False
 
         if sort.startswith("-"):
@@ -110,6 +119,8 @@ def datos():
             column = column.desc()
 
         query = query.order_by(column)
+
+    # PAGINACION
 
     start = request.args.get("start", type=int, default=0)
     length = request.args.get("length", type=int, default=50)
