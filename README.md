@@ -43,16 +43,114 @@ def index():
 
 @app.route("/sensors", methods=['GET'])
 def get():
+    return jsonify ({'Sensors':sensors})
+
+@app.route("/sensors/<int:id>", methods=['GET'])
+def get_measure(id):
+    return jsonify ({'Sensors':sensors[id]})
+
+@app.route("/sensors", methods=['POST'])
+def create():
+    sensor = {'id': "2",
+                'co2': "800",
+                'temp': "23.0",
+                'hum': "77.1",
+                'fecha': "22/3/2021"}
+               
+    sensors.append(sensor)
+    return jsonify ({'Created':sensor})
+
+@app.route("/sensors/<int:id>", methods=['PUT'])
+def sensor_update(id):
+    sensors[id]['fecha'] = "22/9/2021"
+    return jsonify ({'Sensor':sensors[id]})
+
+@app.route("/sensors/<int:id>", methods=['DELETE'])
+def sensor_delete(id):
+    sensors.remove(sensors[id])
+    return jsonify ({'result':True})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
 ```
 
 **3- Corregir y mejorar el manejo de IDs
 Revisar el acceso directo a listas mediante sensors[id] y reemplazarlo por una búsqueda segura por campo id, devolviendo error 404 si no existe.**
 
+Antes para buscar ID, se buscaba por posición. 
+```python
+`@app.route("/sensors/<int:id>", methods=['GET'])
+def get_measure(id):
+  	 return jsonify ({'Sensors':sensors[id]})
+
+
+@app.route("/sensors/<int:id>", methods=['GET'])
+def get_measure(id):
+   for sensor in sensors:
+       if sensor['id'] == str(id):
+           return jsonify({'Sensor': sensor})
+   return jsonify({'error': 'Sensor no encontrado'}), 404
+```
+
 **4- Comparar GET vs POST en Flask
 Implementar dos rutas de login: una con parámetros por URL y otra con formulario POST. Explicar diferencias de visibilidad, seguridad básica y uso correcto de request.args y request.form.**
 
+  - GET: Los datos enviados por el usuario viajan en la URL mediante parámetros, por lo que quedan visibles en la barra del navegador,            pueden guardarse en el historial y copiarse o compartirse fácilmente.
+```python
+
+@app.route("/login_get", methods=["GET"])
+def login_get():
+
+    nombre = request.args.get("nombre") #lee parámetros de URL
+    clave = request.args.get("clave")
+
+    if nombre == "victoria" and clave == "abc":
+        return f"Hola {nombre} con GET"
+
+    return "Usuario o clave incorrectos", 401
+
+
+@app.route("/")
+def index():
+    return """
+    <form action="/login" method="get">
+        Nombre: <input type="text" name="nombre"><br>
+        Clave: <input type="password" name="clave"><br>
+        <input type="submit">
+    </form>
+    """
+```
+
+  - POST: Se emplea para enviar datos al servidor, como en formularios de registro, inicio de sesión o subida de archivos.  Los datos no           son visibles en la URL, lo que lo hace más seguro para información confidencial (aunque no cifrado por defecto). No tiene                límites prácticos de tamaño y los resultados no se almacenan en caché ni pueden marcarse fácilmente.
+```python
+
+@app.route("/login_post", methods=["POST"])
+def login_post():
+
+    nombre = request.form.get("nombre")
+    clave = request.form.get("clave")
+
+    if nombre == "victoria" and clave == "abc":
+        return f"Hola {nombre} con POST"
+
+    return "Usuario o clave incorrectos", 401
+
+
+@app.route("/")
+def index():
+    return """
+    <form action="/login" method="post">
+        Nombre:<input type="text" name="nombre"><br><br>
+        Clave:<input type="password" name="clave"><br><br>
+        <input type="submit">
+    </form>
+    """
+```
+
 **5- Persistir lecturas de sensores en SQLite
 Crear una tabla lectura_sensores con campos como co2, temp, hum, fecha, lugar, altura, presion, presion_nm y temp_ext, siguiendo la estructura usada en sensores_rx.py.**
+
+
 
 **6- Simular capturas de sensores ambientales
 Generar lecturas aleatorias de CO₂, temperatura y humedad; almacenarlas en la base de datos y permitir configurar cantidad de capturas e intervalo entre mediciones.**
