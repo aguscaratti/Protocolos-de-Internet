@@ -23,14 +23,14 @@ Desarrollar endpoints para listar sensores, consultar un sensor por id, crear un
 Revisar el acceso directo a listas mediante sensors[id] y reemplazarlo por una búsqueda segura por campo id, devolviendo error 404 si no existe.**
 
 **4- Comparar GET vs POST en Flask
-Implementar dos rutas de login: una con parámetros por URL y otra con formulario POST. Explicar diferencias de visibilidad, seguridad básica y uso correcto de request.args y request.form.
-**
+Implementar dos rutas de login: una con parámetros por URL y otra con formulario POST. Explicar diferencias de visibilidad, seguridad básica y uso correcto de request.args y request.form.**
+
 **5- Persistir lecturas de sensores en SQLite
-Crear una tabla lectura_sensores con campos como co2, temp, hum, fecha, lugar, altura, presion, presion_nm y temp_ext, siguiendo la estructura usada en sensores_rx.py.
-**
+Crear una tabla lectura_sensores con campos como co2, temp, hum, fecha, lugar, altura, presion, presion_nm y temp_ext, siguiendo la estructura usada en sensores_rx.py.**
+
 **6- Simular capturas de sensores ambientales
-Generar lecturas aleatorias de CO₂, temperatura y humedad; almacenarlas en la base de datos y permitir configurar cantidad de capturas e intervalo entre mediciones.
-**
+Generar lecturas aleatorias de CO₂, temperatura y humedad; almacenarlas en la base de datos y permitir configurar cantidad de capturas e intervalo entre mediciones.**
+
 **7- Integrar datos externos de clima
 Usar una función similar a geo_latlon() para obtener temperatura exterior, presión y humedad desde una API climática, y relacionar esos datos con las lecturas internas.**
 
