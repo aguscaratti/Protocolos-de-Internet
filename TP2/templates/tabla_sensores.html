@@ -46,6 +46,26 @@
                     <input type="number" step="0.01" class="form-control" id="hum">
                 </div>
 
+                <div class="col-md-2">
+                    <label class="form-label">Altura</label>
+                    <input type="number" class="form-control" id="altura">
+                </div>
+                
+                <div class="col-md-2">
+                    <label class="form-label">Presión</label>
+                    <input type="number" step="0.01" class="form-control" id="presion">
+                </div>
+                
+                <div class="col-md-2">
+                    <label class="form-label">Presión NM</label>
+                    <input type="number" step="0.01" class="form-control" id="presion_nm">
+                </div>
+                
+                <div class="col-md-2">
+                    <label class="form-label">Temp Ext</label>
+                    <input type="number" step="0.01" class="form-control" id="temp_ext">
+                </div>
+
                 <div class="col-md-3">
                     <label class="form-label">Fecha</label>
                     <input type="text" class="form-control" id="fecha" placeholder="22/3/2021">
@@ -79,6 +99,10 @@
                         <th>CO2</th>
                         <th>Temp</th>
                         <th>Hum</th>
+                        <th>Altura</th>
+                        <th>Presión</th>
+                        <th>Presión NM</th>
+                        <th>Temp Ext</th>
                         <th>Fecha</th>
                         <th>Acciones</th>
                     </tr>
@@ -131,6 +155,30 @@ async function cargarDatos() {
 
         <td>
             <input class="form-control"
+                   id="altura-${sensor.id}"
+                   value="${sensor.altura ?? ''}">
+        </td>
+        
+        <td>
+            <input class="form-control"
+                   id="presion-${sensor.id}"
+                   value="${sensor.presion ?? ''}">
+        </td>
+        
+        <td>
+            <input class="form-control"
+                   id="presion_nm-${sensor.id}"
+                   value="${sensor.presion_nm ?? ''}">
+        </td>
+        
+        <td>
+            <input class="form-control"
+                   id="temp_ext-${sensor.id}"
+                   value="${sensor.temp_ext ?? ''}">
+        </td>
+
+        <td>
+            <input class="form-control"
                    id="fecha-${sensor.id}"
                    value="${sensor.fecha ?? ''}">
         </td>
@@ -162,6 +210,14 @@ async function actualizar(id) {
         temp: document.getElementById(`temp-${id}`).value,
 
         hum: document.getElementById(`hum-${id}`).value,
+
+        altura: document.getElementById(`altura-${id}`).value,
+
+        presion: document.getElementById(`presion-${id}`).value,
+        
+        presion_nm: document.getElementById(`presion_nm-${id}`).value,
+        
+        temp_ext: document.getElementById(`temp_ext-${id}`).value,
 
         fecha: document.getElementById(`fecha-${id}`).value
     };
@@ -196,6 +252,10 @@ document.getElementById("formNuevo").addEventListener("submit", async function(e
         co2: document.getElementById("co2").value,
         temp: document.getElementById("temp").value,
         hum: document.getElementById("hum").value,
+        altura: document.getElementById("altura").value,
+        presion: document.getElementById("presion").value,
+        presion_nm: document.getElementById("presion_nm").value,
+        temp_ext: document.getElementById("temp_ext").value,
         fecha: document.getElementById("fecha").value
     };
 
