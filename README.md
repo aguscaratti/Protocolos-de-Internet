@@ -22,6 +22,29 @@ def index():
 **2- Implementar una API REST de sensores.
 Desarrollar endpoints para listar sensores, consultar un sensor por id, crear un sensor, modificarlo y eliminarlo usando métodos GET, POST, PUT y DELETE.**
 
+```python
+from flask import Flask,jsonify
+app = Flask(__name__)
+sensors = [{'id':"0",
+            'co2':"800",
+            'temp':"23.0",
+            'hum':"77.1",
+            'fecha':"22/3/2021"},
+           {'id': "1",
+            'co2': "801",
+            'temp': "24.0",
+            'hum': "78.1",
+            'fecha': "23/3/2021"}
+          ]
+
+@app.route('/')
+def index():
+    return "Hola"
+
+@app.route("/sensors", methods=['GET'])
+def get():
+```
+
 **3- Corregir y mejorar el manejo de IDs
 Revisar el acceso directo a listas mediante sensors[id] y reemplazarlo por una búsqueda segura por campo id, devolviendo error 404 si no existe.**
 
