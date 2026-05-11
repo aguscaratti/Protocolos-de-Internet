@@ -123,10 +123,8 @@ Es una Arquitectura Cliente-Servidor Rest porque el cliente se encarga de la int
 - Caché:  para almacenar los datos solicitados con frecuencia. 
 
 **9- Comparar este modelo con el desarrollado en el TP1.**
+
 La diferencia principal entre el TP1 y el TP2 está en que en el TP1 trabajamos en las capas de Transporte y Red mediante el uso de sockets TCP/UDP y también RAW Sockets para entender como viajan los datos bit a bit. En el segundo trabajamos sobre la capa de Aplicación, donde implementamos una Arquitectura REST que es Stateless, y usamos el protocolo HTTP para gestionar URIs. El TP1 nos ayudó a entender como es la comunicación a un nivel más crudo, mientras que el TP2 nos ayuda a ver los servicios web. 
-
-
-
 
 **10- Desarrollar cliente visual WebSocke
 Crear una interfaz web que se conecte a un servidor WebSocket, muestre estado de conexión, permita enviar mensajes y visualice respuestas en tiempo real, según el notebook Cliente_Servidor_Websockets_R2.ipynb.**
