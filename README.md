@@ -1,5 +1,6 @@
 # Protocolos-de-Internet
-Consigna del TP2 A. Desarrollo de Cliente - Servidor bajo Arquitectura Rest
+**Consigna del TP2 A. Desarrollo de Cliente - Servidor bajo Arquitectura Rest**
+
 1- Analizar la aplicación Flask básica. Explicar el funcionamiento de app = Flask(name), @app.route("/"), jsonify() y el modo debug=True, tomando como base Prueba_Flask_Routes_01.py.
 
 2- Implementar una API REST de sensores.
