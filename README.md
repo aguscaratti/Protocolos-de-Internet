@@ -22,60 +22,12 @@ def index():
 **2- Implementar una API REST de sensores.
 Desarrollar endpoints para listar sensores, consultar un sensor por id, crear un sensor, modificarlo y eliminarlo usando métodos GET, POST, PUT y DELETE.**
 
-```python
-from flask import Flask,jsonify
-app = Flask(__name__)
-sensors = [{'id':"0",
-            'co2':"800",
-            'temp':"23.0",
-            'hum':"77.1",
-            'fecha':"22/3/2021"},
-           {'id': "1",
-            'co2': "801",
-            'temp': "24.0",
-            'hum': "78.1",
-            'fecha': "23/3/2021"}
-          ]
-
-@app.route('/')
-def index():
-    return "Hola"
-
-@app.route("/sensors", methods=['GET'])
-def get():
-    return jsonify ({'Sensors':sensors})
-
-@app.route("/sensors/<int:id>", methods=['GET'])
-def get_measure(id):
-    return jsonify ({'Sensors':sensors[id]})
-
-@app.route("/sensors", methods=['POST'])
-def create():
-    sensor = {'id': "2",
-                'co2': "800",
-                'temp': "23.0",
-                'hum': "77.1",
-                'fecha': "22/3/2021"}
-               
-    sensors.append(sensor)
-    return jsonify ({'Created':sensor})
-
-@app.route("/sensors/<int:id>", methods=['PUT'])
-def sensor_update(id):
-    sensors[id]['fecha'] = "22/9/2021"
-    return jsonify ({'Sensor':sensors[id]})
-
-@app.route("/sensors/<int:id>", methods=['DELETE'])
-def sensor_delete(id):
-    sensors.remove(sensors[id])
-    return jsonify ({'result':True})
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-```
+La respuesta a esta pregunta está en el archivo consigna_2_3_5_TP2.py
 
 **3- Corregir y mejorar el manejo de IDs
 Revisar el acceso directo a listas mediante sensors[id] y reemplazarlo por una búsqueda segura por campo id, devolviendo error 404 si no existe.**
+
+El código consigna_2_3_5_TP2.py corrige y maneja los IDs de manera correcta; pero además corregimos parte del código Prueba_Flask_Routes_01.py de la siguiente manera para cumplir la consigna:
 
 Antes para buscar ID, se buscaba por posición. 
 ```python
@@ -150,17 +102,31 @@ def index():
 **5- Persistir lecturas de sensores en SQLite
 Crear una tabla lectura_sensores con campos como co2, temp, hum, fecha, lugar, altura, presion, presion_nm y temp_ext, siguiendo la estructura usada en sensores_rx.py.**
 
-
+La respuesta a esta pregunta está en el archivo consigna_2_3_5_TP2.py
 
 **6- Simular capturas de sensores ambientales
 Generar lecturas aleatorias de CO₂, temperatura y humedad; almacenarlas en la base de datos y permitir configurar cantidad de capturas e intervalo entre mediciones.**
 
+La respuesta a esta pregunta está en el archivo consigna_6_7_TP2.py
+
 **7- Integrar datos externos de clima
 Usar una función similar a geo_latlon() para obtener temperatura exterior, presión y humedad desde una API climática, y relacionar esos datos con las lecturas internas.**
 
+La respuesta a esta pregunta está en el archivo consigna_6_7_TP2.py
+
 **8- Explicar las razones por la cual lo anterior es una Arquitectura CLiente Servidor Rest. Indicar si se cumplen los requisitos. Explicar dónde se definen el cliente y el servidor. Qué elementos faltan**.
+
+Es una Arquitectura Cliente-Servidor Rest porque el cliente se encarga de la interfaz y el servidor de la lógica y los datos. A su vez, porque tiene una interfaz uniforme, se usan URIs y se usan mediante el protocolo HTTP (GET, POST, DELETE). Es stateless, cada solicitud del cliente al servidor debe contener la información necesaria para entenderla, sin que el servidor guarde contexto de solicitudes anteriores. 
+	Los elementos que le faltan son: 
+- HATEOAS: Incluir hipervínculos en las respuestas JSON para guiar al cliente sobre qué otras acciones puede realizar.
+- Sistema por capas: una arquitectura REST debe permitir capas intermedias sin que el cliente lo note. 
+- Caché:  para almacenar los datos solicitados con frecuencia. 
 
 **9- Comparar este modelo con el desarrollado en el TP1.**
 
-**10- Desarrollar cliente visual WebSocket
+
+
+**10- Desarrollar cliente visual WebSocke
 Crear una interfaz web que se conecte a un servidor WebSocket, muestre estado de conexión, permita enviar mensajes y visualice respuestas en tiempo real, según el notebook Cliente_Servidor_Websockets_R2.ipynb.**
+
+Esta consigna está cumplida por el servidor "server_ws.js" y el cliente "cliente_wsp.py"
