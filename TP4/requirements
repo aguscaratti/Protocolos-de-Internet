@@ -1,0 +1,6 @@
+%%writefile requirements.txt
+Flask
+Flask-SocketIO
+eventlet
+paho-mqtt
+flask_sqlalchemy
